@@ -1,11 +1,17 @@
 import { useState } from 'react'
 import './Todo.css'
-const Todo = () => {
-  const [inputValue, setInputValue] = useState('');
+
+const Todo = (props) => {
   const [data, setData] = useState('');
+  const { addData } = props
+
   const handleClick = () => {
-    setData(inputValue)
-    setInputValue('')
+    addData(data)
+    setData('')
+  }
+
+  const handleChange = (name) => {
+    setData(name)
   }
 
   return (
@@ -13,8 +19,8 @@ const Todo = () => {
       <div className="todoContainer">
         <div className="todoContainerInput">
           <input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={data}
+            onChange={(e) => handleChange(e.target.value)}
             placeholder='Text' type="text" />
         </div>
         <div className="todoContainerButton">

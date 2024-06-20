@@ -1,8 +1,8 @@
-* {
+/* * {
     padding: 0;
     margin: 0;
-    
-}
+    box-sizing: border-box; 
+} */
 .container {
   display: flex;
   justify-content: center;
@@ -33,6 +33,7 @@
     border: none;
     border-radius: 10px;
     color: white;
+    font-weight: bold;
     padding: 16px 22px;
     margin-left: 10px;
 }
@@ -47,8 +48,27 @@
 .TodoDataContainerBox {
     height: 300px;
     width: 600px;
-    padding: 30px;
+    padding: 30px 50px;
     border-radius: 30px;
     border: solid 2px;
     border-color: black;
+    overflow: auto; 
+    
+}
+.boxData {
+    margin-top: 20px;
+    display: flex; 
+    justify-content: space-between;
+}
+.boxData p {
+   font-weight: bold;
+   font-size: 22px;
+}
+.dataButton {
+   background-color: rgb(189, 68, 8);
+   border: none;
+   border-radius: 10px;
+   padding: 10px 15px;
+   color: aliceblue;
+   font-weight: bold;
 }
