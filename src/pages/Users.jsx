@@ -1,6 +1,13 @@
+import UserInput from "../component/User/UserInput";
+import UserTable from "../component/User/UserTable";
+
+
 const User = () => {
     return (
-        <div>user page</div>
+        <>
+            <UserInput />
+            <UserTable />
+        </>
     )
 }
 export default User;

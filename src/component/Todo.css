@@ -9,7 +9,7 @@
   margin: 30px auto;
 }
 .container h1 {
-   color: rgb(38, 6, 144);
+   color: rgb(10, 70, 144);
    font-size: 50px;
    font-weight: bold;
 }
@@ -24,21 +24,21 @@
     border-radius: 10px;
     background-color: aliceblue;
     padding: 17px 30px;
+    font-size: 20px;
 }
 .todoContainerInput input::placeholder {
     font-size: 20px;
 }
 .todoContainerButton button {
-    background-color: dodgerblue;
+    background-color: rgb(15, 129, 243);
     border: none;
     border-radius: 10px;
     color: white;
     font-weight: bold;
-    padding: 16px 22px;
+    padding: 18px 22px;
     margin-left: 10px;
 }
 .TodoDataContainer {
-    height: 600px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -51,7 +51,7 @@
     padding: 30px 50px;
     border-radius: 30px;
     border: solid 2px;
-    border-color: black;
+    border-color: rgb(3, 24, 81);
     overflow: auto; 
     
 }
@@ -61,11 +61,11 @@
     justify-content: space-between;
 }
 .boxData p {
-   font-weight: bold;
+   font-weight: 500;
    font-size: 22px;
 }
 .dataButton {
-   background-color: rgb(189, 68, 8);
+   background-color: rgb(205, 73, 8);
    border: none;
    border-radius: 10px;
    padding: 10px 15px;
