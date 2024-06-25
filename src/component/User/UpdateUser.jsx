@@ -1,0 +1,99 @@
+
+import React, { useState } from 'react';
+import { Button, Input, notification, Modal } from 'antd';
+import { createUserAPI } from '../../services/api.service';
+
+const UpdateUserModal = () => {
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+
+    const [isModalOpen, setIsModalOpen] = useState(true);
+    const handleOk = async () => {
+        const res = await createUserAPI(fullName, email, password, phone);
+
+        if (res.data) {
+            notification.success({
+                message: "create user",
+                description: "Tao moi user thanh cong"
+            })
+        } else {
+            notification.error({
+                message: "Error create user",
+                description: JSON.stringify(res.message)
+            })
+        }
+
+        resetAndCloseModal()
+    };
+
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false)
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setPhone("");
+    }
+    return (
+        <Modal
+            open={isModalOpen}
+            onOk={handleOk}
+            okText={"Save"}
+            onCancel={() => resetAndCloseModal()}>
+            <p
+                style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    color: "#1c56a8",
+                    padding: "0px 10px"
+                }}
+            >
+                Update a User
+            </p>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    padding: "20px 10px"
+                }}
+            >
+                <div>
+                    <span>Full Name</span>
+                    <Input
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(e) => { setFullName(e.target.value) }}
+                    />
+                </div>
+                <div>
+                    <span>Email</span>
+                    <Input
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value) }}
+                    />
+                </div>
+                <div>
+                    <span>Password</span>
+                    <Input
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value) }}
+                    />
+                </div>
+                <div>
+                    <span>Phone</span>
+                    <Input
+                        placeholder="Phone"
+                        value={phone}
+                        onChange={(e) => { setPhone(e.target.value) }}
+                    />
+                </div>
+            </div>
+        </Modal>
+
+    )
+}
+export default UpdateUserModal;
