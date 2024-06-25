@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Button, Input, notification, Modal } from 'antd';
 import { createUserAPI } from '../../services/api.service';
 
-const UserInput = () => {
+const UserInput = (props) => {
+    const {loadData} = props;
+  
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,31 +14,39 @@ const UserInput = () => {
     const addDataInformation = async () => {
         const res = await createUserAPI(fullName, email, password, phone);
         console.log("API Response:", res);
+        await loadData ()
         // debugger
         if (res.data) {
             notification.success({
                 message: "create user",
                 description: "Tao moi user thanh cong"
             })
-            // debugger
         } else {
             notification.error({
                 message: "Error create user",
                 description: JSON.stringify(res.message)
             })
         }
+        resetAndCloseModal()
+    }
+
+    const resetAndCloseModal = () => {
         setIsModalOpen(false)
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setPhone("");
     }
     return (
         <>
-            <div>                     
+            <div>
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
                         marginTop: "30px",
                         padding: "0px 90px"
-                    }}                  
+                    }}
                 >
                     <h3 style={{ fontSize: "26px" }} className=''>Table User</h3>
                     <Button
@@ -48,14 +58,14 @@ const UserInput = () => {
                             backgroundColor: "#1c56a8"
                         }}
                         onClick={() => setIsModalOpen(true)}
-                    >  Create User </Button>                  
+                    >  Create User </Button>
                 </div>
 
                 {/* modal */}
                 <Modal
                     open={isModalOpen}
                     onOk={() => addDataInformation()}
-                    onCancel={() => setIsModalOpen(false)}
+                    onCancel={() => resetAndCloseModal()}
                 >
                     <p
                         style={{
