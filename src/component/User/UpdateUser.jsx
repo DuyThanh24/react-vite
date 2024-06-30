@@ -1,22 +1,33 @@
 
-import React, { useState } from 'react';
-import { Button, Input, notification, Modal } from 'antd';
-import { createUserAPI } from '../../services/api.service';
+import React, { useEffect, useState } from 'react';
+import {  Input, notification, Modal } from 'antd';
+import { updateUserAPI } from '../../services/api.service'
 
-const UpdateUserModal = () => {
+const UpdateUserModal = (props) => {
+
+    const { isModalOpenUpdate, setIsModalOpenUpdate, dataUpdate, setDataUpdate, loadData } = props;
+
     const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [id, setId] = useState('');
     const [phone, setPhone] = useState('');
 
-    const [isModalOpen, setIsModalOpen] = useState(true);
-    const handleOk = async () => {
-        const res = await createUserAPI(fullName, email, password, phone);
+    // next dataUpdate != prev dataUpdate
+    useEffect(() => {
+        console.log(">>check props:", dataUpdate);
+        if (dataUpdate) {
+            setId(dataUpdate._id);
+            setFullName(dataUpdate.fullName);
+            setPhone(dataUpdate.phone);
+        }
+    }, [dataUpdate])
 
+    const handleOk = async () => {
+        const res = await updateUserAPI(id, fullName, phone);
+        console.log('test put:', res)
         if (res.data) {
             notification.success({
-                message: "create user",
-                description: "Tao moi user thanh cong"
+                message: "Update user",
+                description: "Thay doi user thanh cong"
             })
         } else {
             notification.error({
@@ -24,20 +35,23 @@ const UpdateUserModal = () => {
                 description: JSON.stringify(res.message)
             })
         }
-
+        await loadData()
         resetAndCloseModal()
-    };
+    }
+
+
+
 
     const resetAndCloseModal = () => {
-        setIsModalOpen(false)
+        setIsModalOpenUpdate(false)
+        setId("")
         setFullName("");
-        setEmail("");
-        setPassword("");
         setPhone("");
+        setDataUpdate(null);
     }
     return (
         <Modal
-            open={isModalOpen}
+            open={isModalOpenUpdate}
             onOk={handleOk}
             okText={"Save"}
             onCancel={() => resetAndCloseModal()}>
@@ -60,33 +74,22 @@ const UpdateUserModal = () => {
                 }}
             >
                 <div>
+                    <span>ID</span>
+                    <Input
+                        disabled
+                        value={id}
+                    />
+                </div>
+                <div>
                     <span>Full Name</span>
                     <Input
-                        placeholder="Full Name"
                         value={fullName}
                         onChange={(e) => { setFullName(e.target.value) }}
                     />
                 </div>
                 <div>
-                    <span>Email</span>
-                    <Input
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => { setEmail(e.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Password</span>
-                    <Input
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => { setPassword(e.target.value) }}
-                    />
-                </div>
-                <div>
                     <span>Phone</span>
                     <Input
-                        placeholder="Phone"
                         value={phone}
                         onChange={(e) => { setPhone(e.target.value) }}
                     />

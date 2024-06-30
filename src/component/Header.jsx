@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
-import {UsergroupAddOutlined, HomeOutlined, BookOutlined } from '@ant-design/icons';
+import {
+    UsergroupAddOutlined,
+    HomeOutlined,
+    BookOutlined,
+    SettingOutlined,
+    LoginOutlined
+} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 
@@ -13,62 +19,51 @@ const Header = () => {
     };
     const items = [
         {
-            label: <Link to={"/"}>Home</Link>,
+            label: <Link style={{ color: "white" }} to={"/"}>Home</Link>,
             key: "home",
-            icon: <HomeOutlined />,
+            icon: <HomeOutlined style={{ color: "white" }} />,
         },
         {
-            label: <Link to={"/user"}>User</Link>,
+            label: <Link style={{ color: "white" }} to={"/user"}>User</Link>,
             key: 'app',
-            icon: <UsergroupAddOutlined />,
+            icon: <UsergroupAddOutlined style={{ color: "white" }} />,
         },
         {
-            label: <Link to={"/book"}>Books</Link>,
+            label: <Link style={{ color: "white" }} to={"/book"}>Books</Link>,
             key: 'SubMenu',
-            icon: <BookOutlined />,
-            // children: [
-            //     {
-            //         type: 'group',
-            //         label: 'Item 1',
-            //         children: [
-            //             {
-            //                 label: 'Option 1',
-            //                 key: 'setting:1',
-            //             },
-            //             {
-            //                 label: 'Option 2',
-            //                 key: 'setting:2',
-            //             },
-            //         ],
-            //     },
-            //     {
-            //         type: 'group',
-            //         label: 'Item 2',
-            //         children: [
-            //             {
-            //                 label: 'Option 3',
-            //                 key: 'setting:3',
-            //             },
-            //             {
-            //                 label: 'Option 4',
-            //                 key: 'setting:4',
-            //             },
-            //         ],
-            //     },
-            // ],
+            icon: <BookOutlined style={{ color: "white" }} />,
         },
-        // {
-        //     key: 'alipay',
-        //     label: (
-        //         <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        //             Navigation Four - Link
-        //         </a>
-        //     ),
-        // },
+        {
+            label: <span style={{ color: "white" }} >Cài đặt</span>,
+            key: 'log',
+            icon: <SettingOutlined style={{ color: "white" }} />,
+            children: [
+                {
+                    type: 'group',
+                    children: [
+                        {
+                            label: <Link style={{ fontWeight: "bold" }} to={"/login"}>Đăng nhập</Link>,
+                            key: 'login',
+                        },
+                        {
+                            label: <Link style={{ fontWeight: "bold" }} to={"/book"}>Đăng xuất  </Link>,
+                            key: 'logout',
+                        },
+                    ],
+                },
+
+            ],
+        },
+
     ];
 
     return (
         <Menu
+            style={{
+                backgroundColor: "rgb(20, 111, 201)",
+                fontWeight: "bold",
+                padding: "10px",
+            }}
             onClick={onClick}
             selectedKeys={[current]}
             mode="horizontal" items={items} />
